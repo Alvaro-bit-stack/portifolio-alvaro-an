@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eaf6ff;
+  --foreground: #0f2a3f;
+
+  --sky-1: #f5fbff;
+  --sky-2: #dff0fb;
+  --sky-3: #c2e2f5;
+  --sky-4: #8fc7e8;
+  --petal: #fbd6e3;
+  --petal-strong: #f4a3bf;
+  --cream: #fff9ee;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-jp: var(--font-jp);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
+html, body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #ffe9f1 0%, transparent 60%),
+    radial-gradient(900px 500px at 10% 30%, #d8ecfb 0%, transparent 60%),
+    radial-gradient(1100px 700px at 90% 80%, #e6f4ff 0%, transparent 60%),
+    linear-gradient(180deg, #eaf6ff 0%, #f7eaff 60%, #fff4f9 100%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Subtle floating sparkle pattern */
+.dreamy-noise {
+  position: relative;
+}
+.dreamy-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.45) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
+  background-size: 32px 32px, 80px 80px;
+  background-position: 0 0, 16px 16px;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* Glassmorphic surface */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 10px 30px -10px rgba(60, 110, 180, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Falling petals (CSS-only fallback layer) */
+@keyframes drift {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.9; }
+  100% { transform: translate3d(20px, 110vh, 0) rotate(360deg); opacity: 0; }
+}
+
+.petal {
+  position: fixed;
+  top: -10vh;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #fbd6e3 45%, #f4a3bf 100%);
+  border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
+  animation: drift linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 2px 6px rgba(244, 163, 191, 0.4));
+}
+
+/* Anchor link offset for sticky nav */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #bcdcf2, #f4a3bf);
+  border-radius: 999px;
 }
