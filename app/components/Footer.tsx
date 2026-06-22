@@ -10,9 +10,10 @@ export default function Footer() {
         color: "var(--washi)",
       }}
     >
-      {/* A second pass of the train across the footer */}
+      {/* A second pass of the train across the footer, slower so it offsets
+          from the hero train and you tend to see one or the other. */}
       <div className="relative h-32 overflow-hidden">
-        <MugenTrain duration={45} bottom="0px" scale={0.65} />
+        <MugenTrain duration={70} bottom="0px" scale={0.65} />
       </div>
 
       <div

@@ -151,10 +151,21 @@ section[id] { scroll-margin-top: 80px; }
   image-rendering: pixelated;
 }
 
-/* Train animation */
+/* Train animation: right-to-left, pause off-screen, flip horizontally,
+   left-to-right, pause off-screen, flip back. One full cycle = "duration". */
 @keyframes train-pass {
-  0%   { transform: translateX(110vw); }
-  100% { transform: translateX(-110%); }
+  0%   { transform: translateX(120vw)  scaleX(1); }
+  35%  { transform: translateX(-120%)  scaleX(1); }
+  /* Pause off-screen left, still facing left */
+  47%  { transform: translateX(-120%)  scaleX(1); }
+  /* Quick flip (happens fully off-screen) */
+  50%  { transform: translateX(-120%)  scaleX(-1); }
+  /* Move left-to-right, now facing right */
+  85%  { transform: translateX(120vw)  scaleX(-1); }
+  /* Pause off-screen right, still facing right */
+  97%  { transform: translateX(120vw)  scaleX(-1); }
+  /* Flip back to ready position */
+  100% { transform: translateX(120vw)  scaleX(1); }
 }
 
 /* Chibi walk bob */

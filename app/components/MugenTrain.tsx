@@ -189,11 +189,13 @@ function SteamPuff({ delay }: { delay: number }) {
 }
 
 /**
- * Mugen Train: wide SVG locomotive + 4 carriages, scrolling right-to-left
- * across the parent. Drop into any container; it positions absolutely.
+ * Mugen Train: wide SVG locomotive + 4 carriages.
+ * Roundtrip animation — crosses the screen right-to-left, pauses, flips
+ * direction, crosses left-to-right, pauses, then repeats. One full cycle
+ * = `duration` seconds.
  */
 export default function MugenTrain({
-  duration = 28,
+  duration = 50,
   bottom = "0px",
   scale = 1,
 }: {

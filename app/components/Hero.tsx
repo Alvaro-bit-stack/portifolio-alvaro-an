@@ -69,7 +69,7 @@ export default function Hero() {
       </div>
 
       {/* The Mugen Train scrolls along the bottom edge */}
-      <MugenTrain duration={32} bottom="40px" scale={1.0} />
+      <MugenTrain duration={52} bottom="40px" scale={1.0} />
 
       <motion.div
         initial={{ opacity: 0 }}
