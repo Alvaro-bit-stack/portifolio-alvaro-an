@@ -1,80 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const SkyScene = dynamic(() => import("./SkyScene"), { ssr: false });
+import MugenTrain from "./MugenTrain";
+import PixelMountains from "./PixelMountains";
 
 export default function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden"
+      className="relative isolate flex min-h-[100svh] items-center overflow-hidden text-washi"
+      style={{ color: "var(--washi)" }}
     >
-      <SkyScene />
+      <PixelMountains />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-32 pb-24">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-32 pb-44">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-[family-name:var(--font-jp)] text-sky-700/80 tracking-widest text-sm uppercase"
+          className="font-[family-name:var(--font-pixel)] text-[0.65rem] tracking-[0.25em] uppercase"
+          style={{ color: "var(--gold)" }}
         >
-          ようこそ · welcome
+          PRESS START &middot; ようこそ
         </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="font-[family-name:var(--font-display)] mt-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-sky-950"
+          className="font-[family-name:var(--font-body)] mt-5 text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1] font-bold"
+          style={{
+            textShadow:
+              "4px 4px 0 #1a1410, 8px 8px 0 rgba(193, 43, 43, 0.55)",
+          }}
         >
-          Hi, I&apos;m <span className="bg-gradient-to-br from-sky-500 via-indigo-400 to-pink-400 bg-clip-text text-transparent">Alvaro</span>.
+          Hi, I&apos;m{" "}
+          <span style={{ color: "var(--gold)" }}>Alvaro</span>.
           <br />
-          <span className="text-sky-900/80">A sky full of code,</span>
+          <span style={{ color: "#f4d8b0" }}>One stop on the</span>
           <br />
-          <span className="text-pink-500/90">and a few good anime.</span>
+          <span style={{ color: "var(--sunset-2)" }}>Mugen Line.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.45 }}
-          className="mt-8 max-w-xl text-lg text-sky-900/75"
+          className="mt-7 max-w-xl text-lg"
+          style={{ color: "#f0e0bc" }}
         >
-          CS student, intern, builder of small wonders. This is my notebook of
-          photos I love, anime that shaped me, and projects I&apos;m proud of.
+          CS student, intern, builder of small wonders. This is my pixelated
+          notebook of photos, anime, and projects. The train carries the cast.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.6 }}
-          className="mt-10 flex flex-wrap items-center gap-3"
+          className="mt-9 flex flex-wrap items-center gap-4"
         >
-          <a
-            href="#about"
-            className="rounded-full bg-sky-900 px-6 py-3 text-white shadow-lg hover:bg-sky-800 transition-colors"
-          >
-            Wander with me ↓
+          <a href="#about" className="pixel-btn">
+            ▶ board the train
           </a>
-          <a
-            href="#anime"
-            className="rounded-full glass px-6 py-3 text-sky-900 font-medium hover:bg-white/80 transition-colors"
-          >
-            See my anime list
+          <a href="#anime" className="pixel-btn pixel-btn-gold">
+            my anime list
           </a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sky-700/60 text-xs tracking-widest"
-        >
-          ↓ scroll
         </motion.div>
       </div>
+
+      {/* The Mugen Train scrolls along the bottom edge */}
+      <MugenTrain duration={32} bottom="40px" scale={1.0} />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 1.1 }}
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 font-[family-name:var(--font-pixel)] text-[0.55rem] tracking-[0.3em] z-20"
+        style={{ color: "#e7a25a" }}
+      >
+        ↓ SCROLL
+      </motion.div>
     </section>
   );
 }
+

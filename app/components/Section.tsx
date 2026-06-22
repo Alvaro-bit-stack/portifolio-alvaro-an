@@ -28,18 +28,37 @@ export default function Section({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="mb-12 max-w-2xl"
+          className="mb-12 max-w-3xl"
         >
           {eyebrow && (
-            <p className="font-[family-name:var(--font-jp)] text-pink-500 text-sm tracking-widest uppercase mb-3">
+            <p
+              className="font-[family-name:var(--font-pixel)] text-[0.6rem] tracking-[0.3em] uppercase mb-4 inline-block px-2 py-1"
+              style={{
+                color: "var(--washi)",
+                background: "var(--ember)",
+                border: "2px solid var(--ink)",
+                boxShadow: "3px 3px 0 var(--ink)",
+              }}
+            >
               {eyebrow}
             </p>
           )}
-          <h2 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl text-sky-950">
+          <h2
+            className="font-[family-name:var(--font-body)] text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
+            style={{
+              color: "var(--ink)",
+              textShadow: "3px 3px 0 rgba(193, 43, 43, 0.25)",
+            }}
+          >
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-lg text-sky-900/75">{subtitle}</p>
+            <p
+              className="mt-5 text-lg sm:text-xl"
+              style={{ color: "var(--ink-2)" }}
+            >
+              {subtitle}
+            </p>
           )}
         </motion.div>
         {children}
@@ -47,3 +66,4 @@ export default function Section({
     </section>
   );
 }
+

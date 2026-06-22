@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Section from "./Section";
+import PixelChibi, { CHIBI_PRESETS } from "./PixelChibi";
 
 const MAL_URL = "https://myanimelist.net/profile/fv5shi";
 
@@ -10,7 +11,8 @@ type AnimePick = {
   jp: string;
   vibe: string;
   rating: number;
-  gradient: string;
+  chibi: number;
+  bg: string;
 };
 
 const picks: AnimePick[] = [
@@ -19,42 +21,48 @@ const picks: AnimePick[] = [
     jp: "千と千尋の神隠し",
     vibe: "comfort & wonder",
     rating: 10,
-    gradient: "from-sky-300 via-emerald-200 to-amber-200",
+    chibi: 0,
+    bg: "#3d6585",
   },
   {
     title: "Your Name",
     jp: "君の名は。",
     vibe: "ache & light",
     rating: 10,
-    gradient: "from-indigo-300 via-pink-200 to-amber-200",
+    chibi: 1,
+    bg: "#c8552b",
   },
   {
     title: "Frieren",
     jp: "葬送のフリーレン",
     vibe: "quiet & profound",
     rating: 9.5,
-    gradient: "from-violet-300 via-sky-200 to-emerald-200",
+    chibi: 2,
+    bg: "#2f6e3a",
   },
   {
     title: "Jujutsu Kaisen",
     jp: "呪術廻戦",
     vibe: "electric & merciless",
     rating: 9,
-    gradient: "from-rose-400 via-purple-300 to-slate-300",
+    chibi: 3,
+    bg: "#1a2334",
   },
   {
     title: "Vinland Saga",
     jp: "ヴィンランド・サガ",
     vibe: "grief into purpose",
     rating: 9.5,
-    gradient: "from-amber-300 via-rose-200 to-slate-300",
+    chibi: 4,
+    bg: "#5a3a28",
   },
   {
     title: "A Silent Voice",
     jp: "聲の形",
     vibe: "tender & honest",
     rating: 10,
-    gradient: "from-sky-200 via-pink-200 to-violet-200",
+    chibi: 5,
+    bg: "#a8c4a8",
   },
 ];
 
@@ -66,25 +74,63 @@ function Card({ a, i }: { a: AnimePick; i: number }) {
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay: i * 0.06 }}
       whileHover={{ y: -6 }}
-      className="glass overflow-hidden rounded-3xl"
+      className="matte overflow-hidden"
     >
       <div
-        className={`relative aspect-[3/4] w-full bg-gradient-to-br ${a.gradient}`}
+        className="relative aspect-[3/4] w-full pixelated"
+        style={{ background: a.bg }}
       >
-        <div className="absolute inset-0 flex flex-col justify-end p-5">
-          <span className="font-[family-name:var(--font-jp)] text-white/95 text-2xl drop-shadow">
+        {/* Pixel scanlines for that CRT feel */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0 1px, transparent 1px 4px)",
+            opacity: 0.4,
+          }}
+        />
+        {/* Chibi character centered */}
+        <div className="absolute inset-0 flex items-end justify-center pb-8">
+          <PixelChibi {...CHIBI_PRESETS[a.chibi]} size={120} />
+        </div>
+        {/* JP title at bottom */}
+        <div className="absolute inset-x-0 bottom-0 p-3 bg-black/60">
+          <span
+            className="font-[family-name:var(--font-jp)] text-xl"
+            style={{ color: "var(--washi)" }}
+          >
             {a.jp}
           </span>
         </div>
-        <div className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-sky-900 shadow">
+        {/* Rating chip */}
+        <div
+          className="absolute top-3 right-3 px-2 py-1 font-[family-name:var(--font-pixel)] text-[0.6rem]"
+          style={{
+            background: "var(--gold)",
+            color: "var(--ink)",
+            border: "2px solid var(--ink)",
+            boxShadow: "2px 2px 0 var(--ink)",
+          }}
+        >
           ★ {a.rating.toFixed(1)}
         </div>
       </div>
-      <div className="p-5">
-        <h3 className="font-[family-name:var(--font-display)] text-xl text-sky-950">
+      <div
+        className="p-5"
+        style={{ background: "var(--washi-2)", borderTop: "2px solid var(--ink)" }}
+      >
+        <h3
+          className="font-[family-name:var(--font-body)] text-xl font-bold"
+          style={{ color: "var(--ink)" }}
+        >
           {a.title}
         </h3>
-        <p className="mt-1 text-sm text-sky-900/65 italic">{a.vibe}</p>
+        <p
+          className="mt-1 text-sm italic"
+          style={{ color: "var(--ink-2)" }}
+        >
+          {a.vibe}
+        </p>
       </div>
     </motion.div>
   );
@@ -94,13 +140,13 @@ export default function AnimeList() {
   return (
     <Section
       id="anime"
-      eyebrow="アニメ · my watchlist"
+      eyebrow="PARTY · MY WATCHLIST"
       title={
         <>
-          Anime that <span className="text-pink-500">stayed</span> with me.
+          Anime that <span style={{ color: "var(--ember)" }}>stayed</span> with me.
         </>
       }
-      subtitle="A handful of favorites. For the full receipts (currently watching, dropped, ratings), my MyAnimeList is one click away."
+      subtitle="A handful of favorites. For the full receipts — currently watching, dropped, ratings — my MyAnimeList is one click away."
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {picks.map((a, i) => (
@@ -113,24 +159,36 @@ export default function AnimeList() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-3xl glass p-8"
+        className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 matte p-8"
       >
-        <div>
-          <p className="font-[family-name:var(--font-jp)] text-pink-500 text-sm tracking-widest uppercase">
-            full list
-          </p>
-          <h3 className="font-[family-name:var(--font-display)] text-2xl text-sky-950 mt-1">
-            See everything I&apos;ve watched on MyAnimeList →
-          </h3>
-          <p className="text-sky-900/70 mt-1 text-sm">
-            Updated whenever I finish a season (or remember).
-          </p>
+        <div className="flex items-center gap-4">
+          <PixelChibi {...CHIBI_PRESETS[5]} size={56} />
+          <div>
+            <p
+              className="font-[family-name:var(--font-pixel)] text-[0.55rem] tracking-widest uppercase"
+              style={{ color: "var(--ember)" }}
+            >
+              FULL LIST
+            </p>
+            <h3
+              className="font-[family-name:var(--font-body)] text-2xl font-bold mt-1"
+              style={{ color: "var(--ink)" }}
+            >
+              Everything I&apos;ve watched on MyAnimeList →
+            </h3>
+            <p
+              className="mt-1 text-sm"
+              style={{ color: "var(--ink-2)" }}
+            >
+              Updated whenever I finish a season (or remember).
+            </p>
+          </div>
         </div>
         <a
           href={MAL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 rounded-full bg-gradient-to-r from-sky-500 to-pink-400 px-6 py-3 text-white font-semibold shadow-lg hover:scale-[1.03] transition-transform"
+          className="pixel-btn pixel-btn-dark shrink-0"
         >
           Visit my MAL ↗
         </a>
@@ -138,3 +196,4 @@ export default function AnimeList() {
     </Section>
   );
 }
+

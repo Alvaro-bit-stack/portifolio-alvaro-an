@@ -9,18 +9,21 @@ const socials = [
     handle: "@Alvaro-bit-stack",
     href: "https://github.com/Alvaro-bit-stack",
     emoji: "🐙",
+    color: "var(--ink)",
   },
   {
     name: "MyAnimeList",
     handle: "fv5shi",
     href: "https://myanimelist.net/profile/fv5shi",
     emoji: "🎌",
+    color: "var(--ember)",
   },
   {
     name: "Email",
     handle: "say hi",
     href: "mailto:hello@example.com",
     emoji: "✉️",
+    color: "var(--gold)",
   },
 ];
 
@@ -28,10 +31,10 @@ export default function Contact() {
   return (
     <Section
       id="contact"
-      eyebrow="お便り · get in touch"
+      eyebrow="POST · GET IN TOUCH"
       title={
         <>
-          Let&apos;s be <span className="text-pink-500">friends</span>.
+          Let&apos;s be <span style={{ color: "var(--ember)" }}>friends</span>.
         </>
       }
       subtitle="Always down to talk about software, anime, or where to find the best matcha. Pick your favorite channel."
@@ -48,18 +51,36 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
             whileHover={{ y: -4 }}
-            className="glass group flex items-center gap-4 rounded-3xl p-6"
+            className="matte group flex items-center gap-4 p-6"
           >
-            <span className="text-4xl">{s.emoji}</span>
+            <div
+              className="w-14 h-14 flex items-center justify-center text-3xl shrink-0"
+              style={{
+                background: s.color,
+                border: "2px solid var(--ink)",
+                boxShadow: "3px 3px 0 var(--ink)",
+              }}
+            >
+              {s.emoji}
+            </div>
             <div className="flex-1">
-              <p className="text-sm text-sky-700/70 uppercase tracking-wider">
+              <p
+                className="font-[family-name:var(--font-pixel)] text-[0.55rem] uppercase tracking-widest"
+                style={{ color: "var(--ink-2)" }}
+              >
                 {s.name}
               </p>
-              <p className="font-[family-name:var(--font-display)] text-xl text-sky-950">
+              <p
+                className="font-[family-name:var(--font-body)] text-xl font-bold"
+                style={{ color: "var(--ink)" }}
+              >
                 {s.handle}
               </p>
             </div>
-            <span className="text-sky-700/40 group-hover:text-sky-700 transition-colors">
+            <span
+              className="font-[family-name:var(--font-pixel)] text-[0.65rem]"
+              style={{ color: "var(--ink)" }}
+            >
               ↗
             </span>
           </motion.a>
@@ -68,3 +89,4 @@ export default function Contact() {
     </Section>
   );
 }
+

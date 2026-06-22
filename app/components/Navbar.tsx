@@ -29,17 +29,25 @@ export default function Navbar() {
     >
       <nav
         className={`mx-auto max-w-6xl px-4 sm:px-6 transition-all duration-300 ${
-          scrolled ? "glass rounded-2xl" : ""
+          scrolled ? "matte-dark rounded-none" : ""
         }`}
       >
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-3 px-3">
           <a
             href="#top"
-            className="flex items-center gap-2 font-[family-name:var(--font-display)] text-xl text-sky-900"
+            className="flex items-center gap-2 font-[family-name:var(--font-pixel)] text-[0.7rem] uppercase tracking-[0.2em]"
+            style={{ color: scrolled ? "var(--washi)" : "var(--washi)" }}
           >
-            <span className="inline-block h-3 w-3 rounded-full bg-gradient-to-br from-sky-300 to-pink-300 shadow-[0_0_12px_rgba(244,163,191,0.6)]" />
+            <span
+              className="inline-block h-3 w-3"
+              style={{
+                background: "var(--ember)",
+                border: "2px solid var(--ink)",
+                boxShadow: "2px 2px 0 var(--ink)",
+              }}
+            />
             <span>Alvaro</span>
-            <span className="font-[family-name:var(--font-jp)] text-sm text-sky-700/70">
+            <span className="font-[family-name:var(--font-jp)] text-[0.65rem] opacity-70">
               空
             </span>
           </a>
@@ -49,7 +57,10 @@ export default function Navbar() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="rounded-full px-4 py-2 text-sm font-medium text-sky-900/80 hover:bg-white/60 hover:text-sky-900 transition-colors"
+                  className="font-[family-name:var(--font-pixel)] text-[0.65rem] uppercase tracking-[0.15em] px-3 py-2 transition-colors"
+                  style={{
+                    color: "var(--washi)",
+                  }}
                 >
                   {l.label}
                 </a>
@@ -61,41 +72,57 @@ export default function Navbar() {
             href="https://myanimelist.net/profile/fv5shi"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-400 to-pink-300 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+            className="hidden md:inline-flex pixel-btn pixel-btn-gold"
+            style={{ fontSize: "0.65rem", padding: "0.5rem 0.9rem" }}
           >
             MAL ↗
           </a>
 
           <button
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden rounded-full glass p-2"
+            className="md:hidden p-2 border-2"
+            style={{
+              background: "var(--washi)",
+              borderColor: "var(--ink)",
+              boxShadow: "3px 3px 0 var(--ink)",
+            }}
             aria-label="Toggle menu"
           >
-            <span className="block h-0.5 w-5 bg-sky-900 mb-1" />
-            <span className="block h-0.5 w-5 bg-sky-900 mb-1" />
-            <span className="block h-0.5 w-5 bg-sky-900" />
+            <span
+              className="block h-0.5 w-5 mb-1"
+              style={{ background: "var(--ink)" }}
+            />
+            <span
+              className="block h-0.5 w-5 mb-1"
+              style={{ background: "var(--ink)" }}
+            />
+            <span
+              className="block h-0.5 w-5"
+              style={{ background: "var(--ink)" }}
+            />
           </button>
         </div>
 
         {open && (
-          <ul className="md:hidden glass rounded-2xl mt-2 mb-3 p-3 flex flex-col gap-1">
+          <ul className="md:hidden matte-dark mt-2 mb-3 p-3 flex flex-col gap-1">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-xl px-4 py-2 text-sky-900 hover:bg-white/60"
+                  className="block px-4 py-2 font-[family-name:var(--font-pixel)] text-[0.7rem] uppercase tracking-wider"
+                  style={{ color: "var(--washi)" }}
                 >
                   {l.label}
                 </a>
               </li>
             ))}
-            <li>
+            <li className="pt-2">
               <a
                 href="https://myanimelist.net/profile/fv5shi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl bg-gradient-to-r from-sky-400 to-pink-300 px-4 py-2 text-white text-center font-semibold"
+                className="pixel-btn pixel-btn-gold w-full justify-center"
               >
                 MyAnimeList ↗
               </a>
@@ -106,3 +133,4 @@ export default function Navbar() {
     </header>
   );
 }
+

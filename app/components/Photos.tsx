@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Section from "./Section";
 
 // Drop image files into /public/photos/ and update this list.
-// `src` is relative to /public.
 const photos: { src: string | null; caption: string; tilt: number }[] = [
   { src: null, caption: "First/second year of college", tilt: -3 },
   { src: null, caption: "Late night coding sessions", tilt: 2 },
@@ -31,31 +30,50 @@ function Polaroid({
       whileInView={{ opacity: 1, y: 0, rotate: tilt }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.06 }}
-      whileHover={{ rotate: 0, y: -6, scale: 1.03 }}
-      className="bg-white rounded-md p-3 pb-5 shadow-[0_15px_30px_-12px_rgba(60,110,180,0.35)] cursor-pointer"
+      whileHover={{ rotate: 0, y: -6 }}
+      className="p-3 pb-5 cursor-pointer matte"
       style={{ transformOrigin: "center" }}
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-gradient-to-br from-sky-100 via-pink-100 to-amber-100">
+      <div
+        className="relative aspect-[4/5] w-full overflow-hidden pixelated"
+        style={{
+          background:
+            "repeating-linear-gradient(45deg, #d97a4a 0 12px, #c8552b 12px 24px)",
+          border: "2px solid var(--ink)",
+          imageRendering: "pixelated",
+        }}
+      >
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={src}
             alt={caption}
             className="h-full w-full object-cover"
+            style={{ imageRendering: "auto" }}
           />
         ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center text-sky-600/50 text-center px-4">
-            <span className="text-5xl mb-2">✦</span>
-            <span className="text-xs uppercase tracking-widest">
+          <div
+            className="flex h-full w-full flex-col items-center justify-center text-center px-4"
+            style={{ color: "var(--washi)" }}
+          >
+            <span className="text-5xl mb-2 font-[family-name:var(--font-pixel)]">★</span>
+            <span
+              className="font-[family-name:var(--font-pixel)] text-[0.55rem] tracking-widest uppercase"
+            >
               drop a photo
             </span>
-            <span className="text-[10px] mt-1 opacity-60">
+            <span
+              className="font-[family-name:var(--font-pixel)] text-[0.5rem] mt-1 opacity-80"
+            >
               /public/photos/
             </span>
           </div>
         )}
       </div>
-      <figcaption className="mt-3 text-center text-sm text-sky-900/80 font-[family-name:var(--font-display)]">
+      <figcaption
+        className="mt-3 text-center text-sm font-[family-name:var(--font-body)]"
+        style={{ color: "var(--ink)" }}
+      >
         {caption}
       </figcaption>
     </motion.figure>
@@ -66,13 +84,13 @@ export default function Photos() {
   return (
     <Section
       id="photos"
-      eyebrow="思い出 · memories"
+      eyebrow="ALBUM · MEMORIES"
       title={
         <>
-          Some photos I <span className="text-pink-500">love</span>.
+          Some photos I <span style={{ color: "var(--ember)" }}>love</span>.
         </>
       }
-      subtitle="A small gallery of moments from college, projects, and everyday life. Stuck to the page like polaroids on a corkboard."
+      subtitle="A small gallery of moments from college, projects, and everyday life. Pinned to the board like polaroids."
     >
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-3">
         {photos.map((p, i) => (
@@ -80,15 +98,13 @@ export default function Photos() {
         ))}
       </div>
 
-      <p className="mt-10 text-center text-sm text-sky-700/60">
-        Tip: replace placeholders by dropping files into{" "}
-        <code className="rounded bg-white/60 px-2 py-0.5">/public/photos/</code>{" "}
-        and editing{" "}
-        <code className="rounded bg-white/60 px-2 py-0.5">
-          app/components/Photos.tsx
-        </code>
-        .
+      <p
+        className="mt-10 text-center text-sm font-[family-name:var(--font-pixel)] text-[0.55rem] uppercase tracking-widest"
+        style={{ color: "var(--ink-2)" }}
+      >
+        Drop files into /public/photos/ and edit app/components/Photos.tsx
       </p>
     </Section>
   );
 }
+

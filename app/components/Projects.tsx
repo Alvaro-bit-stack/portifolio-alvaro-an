@@ -9,23 +9,26 @@ type Project = {
   tags: string[];
   href?: string;
   emoji: string;
+  accent: string;
 };
 
 const projects: Project[] = [
   {
     name: "This portfolio",
     blurb:
-      "A Ghibli-flavored personal site with React Three Fiber clouds, floating petals, and a soft sky gradient. Built with love and a lot of Tailwind.",
+      "A pixel-art Mugen Train portfolio with a scrolling train, twilight mountains, and chibi sprites from my favorite shows.",
     tags: ["Next.js", "Three.js", "Tailwind"],
-    emoji: "☁️",
-    href: "https://github.com/Alvaro-bit-stack",
+    emoji: "🚂",
+    href: "https://github.com/Alvaro-bit-stack/portifolio-alvaro-an",
+    accent: "var(--ember)",
   },
   {
     name: "Service Foundry",
     blurb:
-      "Internship project at Microsoft: turning a 14-step manual service creation workflow into a guided, automated experience for engineers.",
+      "Internship project at Microsoft. Turning a 14-step manual service creation workflow into a guided, automated experience for engineers.",
     tags: ["TypeScript", "Azure", "DevEx"],
     emoji: "🛠️",
+    accent: "var(--gold)",
   },
   {
     name: "Daily Actionables Agent",
@@ -33,6 +36,7 @@ const projects: Project[] = [
       "A PowerShell + AI script that reads my email, finds what actually needs me, and sends a clean morning digest.",
     tags: ["PowerShell", "AI", "Productivity"],
     emoji: "📬",
+    accent: "var(--twilight-2)",
   },
   {
     name: "Something next",
@@ -40,6 +44,7 @@ const projects: Project[] = [
       "There's always a next one. Replace this card with your latest little experiment.",
     tags: ["coming soon"],
     emoji: "✨",
+    accent: "var(--moss)",
   },
 ];
 
@@ -47,10 +52,10 @@ export default function Projects() {
   return (
     <Section
       id="projects"
-      eyebrow="作品 · projects"
+      eyebrow="QUESTS · PROJECTS"
       title={
         <>
-          Things I&apos;ve <span className="text-sky-500">built</span>.
+          Things I&apos;ve <span style={{ color: "var(--ember)" }}>built</span>.
         </>
       }
       subtitle="A mix of professional work and side projects. The ones I keep coming back to are usually the small ones."
@@ -67,26 +72,40 @@ export default function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: i * 0.07 }}
             whileHover={{ y: -4 }}
-            className="group glass block rounded-3xl p-7 transition-shadow hover:shadow-xl"
+            className="group matte block p-7 transition-shadow"
           >
-            <div className="flex items-start justify-between">
-              <span className="text-4xl">{p.emoji}</span>
+            <div className="flex items-start justify-between mb-5">
+              <div
+                className="w-14 h-14 flex items-center justify-center text-3xl"
+                style={{
+                  background: p.accent,
+                  border: "2px solid var(--ink)",
+                  boxShadow: "3px 3px 0 var(--ink)",
+                }}
+              >
+                {p.emoji}
+              </div>
               {p.href && (
-                <span className="text-sky-700/60 group-hover:text-sky-700 transition-colors">
-                  ↗
+                <span
+                  className="font-[family-name:var(--font-pixel)] text-[0.6rem] tracking-widest"
+                  style={{ color: "var(--ink)" }}
+                >
+                  OPEN ↗
                 </span>
               )}
             </div>
-            <h3 className="font-[family-name:var(--font-display)] mt-5 text-2xl text-sky-950">
+            <h3
+              className="font-[family-name:var(--font-body)] text-2xl font-bold"
+              style={{ color: "var(--ink)" }}
+            >
               {p.name}
             </h3>
-            <p className="mt-2 text-sky-900/75">{p.blurb}</p>
+            <p className="mt-2" style={{ color: "var(--ink-2)" }}>
+              {p.blurb}
+            </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {p.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-sky-800"
-                >
+                <span key={t} className="tag">
                   {t}
                 </span>
               ))}
@@ -97,3 +116,4 @@ export default function Projects() {
     </Section>
   );
 }
+

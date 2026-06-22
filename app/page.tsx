@@ -6,20 +6,28 @@ import AnimeList from "./components/AnimeList";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Petals from "./components/Petals";
+import Fireflies from "./components/Fireflies";
+import WalkingChibis from "./components/WalkingChibis";
 
 export default function Home() {
   return (
     <main className="relative flex flex-1 flex-col">
-      <Petals />
+      <Fireflies />
       <Navbar />
       <Hero />
-      <About />
+      <div className="relative">
+        <About />
+        <WalkingChibis />
+      </div>
       <Photos />
       <AnimeList />
-      <Projects />
+      <div className="relative">
+        <Projects />
+        <WalkingChibis />
+      </div>
       <Contact />
       <Footer />
     </main>
   );
 }
+
